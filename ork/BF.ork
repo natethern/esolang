@@ -50,7 +50,7 @@ Decrementer's second operand is CurrentCell's Value.
 Decrementer is to compare.
 If Decrementer says it's greater then CurrentCell's Value is 255.
 # To deliberately segfaoult instead of rollover, add the next line:
-#If Incrementer says it's greater then I have a CurrentCell which is a BFCell.
+#If Decrementer says it's greater then I have a CurrentCell which is a BFCell.
 
 When a BFTape is to Advance:
 I have a linguist called TapeScryer.
@@ -62,7 +62,7 @@ CurrentCell is CurrentCell's NextCell.
 
 When a BFTape is to Retreat:
 CurrentCell is CurrentCell's PrevCell.
-# Trying to retreat beyond first cell will segfault.
+# Trying to retreat behind first cell will segfault.
 
 There is such a thing as a BFInstruction.
 A BFInstruction has an Instruction which is a word.
@@ -75,38 +75,28 @@ A BFInstruction can MaybeLoopOn a BFTape.
 When a BFInstruction is to OperateOn a BFTape:
 There is a linguist called InstructionGrokker.
 There is a scribe called Rambler.
-#Rambler is to write ":".
-#Rambler is to write Instruction.
-#Rambler is to write ":\n".
 InstructionGrokker's first operand is Instruction.
 InstructionGrokker's second operand is "+".
 InstructionGrokker is to compare.
 If InstructionGrokker says it's equal then the BFTape is to Increment.
-#Rambler is to write "1\n".
 InstructionGrokker's second operand is "-".
 InstructionGrokker is to compare.
 If InstructionGrokker says it's equal then the BFTape is to Decrement.
-#Rambler is to write "2\n".
 InstructionGrokker's second operand is ">".
 InstructionGrokker is to compare.
 If InstructionGrokker says it's equal then the BFTape is to Advance.
-#Rambler is to write "3\n".
 InstructionGrokker's second operand is "<".
 InstructionGrokker is to compare.
 If InstructionGrokker says it's equal then the BFTape is to Retreat.
-#Rambler is to write "4\n".
 InstructionGrokker's second operand is ".".
 InstructionGrokker is to compare.
 If InstructionGrokker says it's equal then Rambler is to asciiWrite the BFTape's CurrentCell's Value.
-#Rambler is to write "5\n".
 InstructionGrokker's second operand is ",".
 InstructionGrokker is to compare.
 If InstructionGrokker says it's equal then I am to ReadInto the BFTape.
-#Rambler is to write "6\n".
 InstructionGrokker's second operand is "[".
 InstructionGrokker is to compare.
 If InstructionGrokker says it's equal then I am to MaybeLoopOn the BFTape.
-#Rambler is to write "7\n".
 InstructionGrokker's second operand is "!".
 InstructionGrokker is to compare.
 If InstructionGrokker says it's not equal then NextInstruction is to OperateOn the BFTape.
