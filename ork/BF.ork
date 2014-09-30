@@ -1,0 +1,180 @@
+There is such a thing as a BFCell.
+A BFCell has a Value which is a number.
+A BFCell has a Position which is a word.
+A BFCell can have a NextCell which is a BFCell.
+A BFCell can have a PrevCell which is a BFCell.
+
+There is such a thing as a BFTape.
+A BFTape can have a CurrentCell which is a BFCell.
+A BFTape can Initialize.
+A BFTape can AppendACell.
+A BFTape can Increment.
+A BFTape can Decrement.
+A BFTape can Advance.
+A BFTape can Retreat.
+
+When a BFTape is to Initialize:
+I have a CurrentCell which is a BFCell.
+CurrentCell's Value is 0.
+I am to AppendACell.
+CurrentCell's Position is "First".
+
+When a BFTape is to AppendACell:
+CurrentCell's Position is "Middle".
+CurrentCell has a NextCell which is a BFCell.
+CurrentCell's NextCell's PrevCell is CurrentCell.
+CurrentCell's NextCell's Position is "Last".
+CurrentCell's NextCell's Value is 0.
+
+When a BFTape is to Increment:
+I have a mathematician called Incrementer.
+Incrementer's first operand is CurrentCell's Value.
+Incrementer's second operand is 1.
+Incrementer is to add.
+CurrentCell's Value is Incrementer's result.
+Incrementer's first operand is CurrentCell's Value.
+Incrementer's second operand is 255.
+Incrementer is to compare.
+If Incrementer says it's greater then CurrentCell's Value is 0.
+# To deliberately segfaoult instead of rollover, add the next line:
+#If Incrementer says it's greater then I have a CurrentCell which is a BFCell.
+
+When a BFTape is to Decrement:
+I have a mathematician called Decrementer.
+Decrementer's first operand is CurrentCell's Value.
+Decrementer's second operand is 1.
+Decrementer is to subtract.
+CurrentCell's Value is Decrementer's result.
+Decrementer's first operand is 0.
+Decrementer's second operand is CurrentCell's Value.
+Decrementer is to compare.
+If Decrementer says it's greater then CurrentCell's Value is 255.
+# To deliberately segfaoult instead of rollover, add the next line:
+#If Incrementer says it's greater then I have a CurrentCell which is a BFCell.
+
+When a BFTape is to Advance:
+I have a linguist called TapeScryer.
+TapeScryer's first operand is CurrentCell's Position.
+TapeScryer's second operand is "Last".
+TapeScryer is to compare.
+If TapeScryer says it's equal then I am to AppendACell.
+CurrentCell is CurrentCell's NextCell.
+
+When a BFTape is to Retreat:
+CurrentCell is CurrentCell's PrevCell.
+# Trying to retreat beyond first cell will segfault.
+
+There is such a thing as a BFInstruction.
+A BFInstruction has an Instruction which is a word.
+A BFInstruction can have a NextInstruction which is a BFInstruction.
+A BFInstruction can have an AlternateNextInstruction which is a BFInstruction.
+A BFInstruction can OperateOn a BFTape.
+A BFInstruction can ReadInto a BFTape.
+A BFInstruction can MaybeLoopOn a BFTape.
+
+When a BFInstruction is to OperateOn a BFTape:
+There is a linguist called InstructionGrokker.
+There is a scribe called Rambler.
+#Rambler is to write ":".
+#Rambler is to write Instruction.
+#Rambler is to write ":\n".
+InstructionGrokker's first operand is Instruction.
+InstructionGrokker's second operand is "+".
+InstructionGrokker is to compare.
+If InstructionGrokker says it's equal then the BFTape is to Increment.
+#Rambler is to write "1\n".
+InstructionGrokker's second operand is "-".
+InstructionGrokker is to compare.
+If InstructionGrokker says it's equal then the BFTape is to Decrement.
+#Rambler is to write "2\n".
+InstructionGrokker's second operand is ">".
+InstructionGrokker is to compare.
+If InstructionGrokker says it's equal then the BFTape is to Advance.
+#Rambler is to write "3\n".
+InstructionGrokker's second operand is "<".
+InstructionGrokker is to compare.
+If InstructionGrokker says it's equal then the BFTape is to Retreat.
+#Rambler is to write "4\n".
+InstructionGrokker's second operand is ".".
+InstructionGrokker is to compare.
+If InstructionGrokker says it's equal then Rambler is to asciiWrite the BFTape's CurrentCell's Value.
+#Rambler is to write "5\n".
+InstructionGrokker's second operand is ",".
+InstructionGrokker is to compare.
+If InstructionGrokker says it's equal then I am to ReadInto the BFTape.
+#Rambler is to write "6\n".
+InstructionGrokker's second operand is "[".
+InstructionGrokker is to compare.
+If InstructionGrokker says it's equal then I am to MaybeLoopOn the BFTape.
+#Rambler is to write "7\n".
+InstructionGrokker's second operand is "!".
+InstructionGrokker is to compare.
+If InstructionGrokker says it's not equal then NextInstruction is to OperateOn the BFTape.
+
+When a BFInstruction is to ReadInto a BFTape:
+There is an inputter called Listener.
+I have a number called Character.
+Listener is to readOne Character.
+If Listener says it's not done then the BFTape's CurrentCell's Value is Character.
+If Listener says it's done then the BFTape's CurrentCell's Value is 0.
+
+When a BFInstruction is to MaybeLoopOn a BFTape:
+There is a mathematician called IsItZero.
+IsItZero's first operand is the BFTape's CurrentCell's Value.
+IsItZero's second operand is 0.
+IsItZero is to compare.
+If IsItZero says it's greater then AlternateNextInstruction is to OperateOn the BFTape.
+If IsItZero says it's greater then I am to loop.
+
+There is such a thing as a BFProgramReader.
+A BFProgramReader can have a FirstInstruction which is a BFInstruction.
+A BFProgramReader can have a CurrentInstruction which is a BFInstruction.
+A BFProgramReader can StartReadingBFCode.
+A BFProgramReader can ReadMoreBFCode.
+#A BFProgramReader can ReadBFCode a BFInstruction.
+
+When a BFProgramReader is to StartReadingBFCode:
+I have a FirstInstruction which is a BFInstruction.
+CurrentInstruction is FirstInstruction.
+I am to ReadMoreBFCode.
+
+When a BFProgramReader is to ReadMoreBFCode:
+There is an inputter called InstructionGetter.
+There is a linguist called InstructionParser.
+There is a word called SingleInstruction.
+There is a word called ImDone.
+There is a BFProgramReader called SubReader.
+There is a scribe called S.
+ImDone is "False".
+InstructionGetter is to readOne SingleInstruction.
+If InstructionGetter says it's done then SingleInstruction is "!".
+InstructionParser's first operand is SingleInstruction.
+InstructionParser's second operand is "!".
+InstructionParser is to compare.
+If InstructionParser says it's equal then ImDone is "True".
+InstructionParser's second operand is "]".
+InstructionParser is to compare.
+If InstructionParser says it's equal then ImDone is "True".
+If InstructionParser says it's equal then SingleInstruction is "!".
+CurrentInstruction's Instruction is SingleInstruction.
+S is to write SingleInstruction.
+S is to write " ".
+S is to write ImDone.
+S is to write "\n".
+InstructionParser's second operand is "[".
+InstructionParser is to compare.
+If InstructionParser says it's equal then SubReader is to StartReadingBFCode.
+If InstructionParser says it's equal then CurrentInstruction's AlternateNextInstruction is SubReader's FirstInstruction.
+InstructionParser's first operand is ImDone.
+InstructionParser's second operand is "True".
+InstructionParser is to compare.
+If InstructionParser says it's not equal then CurrentInstruction has a NextInstruction which is a BFInstruction.
+If InstructionParser says it's not equal then CurrentInstruction is CurrentInstruction's NextInstruction.
+If InstructionParser says it's not equal then I am to loop.
+
+When this program starts:
+I have a BFTape called Tape.
+I have a BFProgramReader called ProgramReader.
+ProgramReader is to StartReadingBFCode.
+Tape is to Initialize.
+ProgramReader's FirstInstruction is to OperateOn Tape.
